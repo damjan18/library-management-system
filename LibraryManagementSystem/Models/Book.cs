@@ -2,15 +2,15 @@
 {
     public class Book
     {
-        // Private fields (enkapsulacija)
+        // Private fields (encapsulation)
         private string _isbn;
         private string _title;
         private string _author;
         private int _publicationYear;
         private bool _isAvailable;
 
-        // Properties sa validacijom
-        public string ISBN
+        // Properties with validation
+        public string ISBN  
         {
             get { return _isbn; }
             set
@@ -67,10 +67,10 @@
             Title = title;
             Author = author;
             PublicationYear = publicationYear;
-            IsAvailable = true; // Nova knjiga je dostupna
+            IsAvailable = true; 
         }
 
-        // Metoda za prikaz informacija o knjizi
+        // Show book information
         public override string ToString()
         {
             string availability = IsAvailable ? "Available" : "Checked out";

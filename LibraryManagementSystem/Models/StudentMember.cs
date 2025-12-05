@@ -27,7 +27,7 @@
             }
         }
 
-        // Constructor - poziva base constructor
+        // Constructor - calls base constructor
         public StudentMember(string memberId, string name, string email, string studentId, string university)
             : base(memberId, name, email)
         {
@@ -35,13 +35,13 @@
             University = university;
         }
 
-        // Override abstract metode - studenti mogu da pozajme više knjiga
+        // Override abstract method
         public override int GetMaxBooksAllowed()
         {
             return 5;
         }
 
-        // Override virtual metode
+        // Override virtual method
         public override string GetMemberType()
         {
             return "Student Member";

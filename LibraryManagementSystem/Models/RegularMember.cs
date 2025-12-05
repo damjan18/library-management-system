@@ -22,13 +22,13 @@
             PhoneNumber = phoneNumber;
         }
 
-        // Override abstract metode - regularni članovi mogu manje knjiga
+        // Override abstract method
         public override int GetMaxBooksAllowed()
         {
             return 3;
         }
 
-        // Override virtual metode
+        // Override virtual method
         public override string GetMemberType()
         {
             return "Regular Member";

@@ -36,7 +36,7 @@ namespace LibraryManagementSystem.Services
             if (book == null)
                 throw new ArgumentNullException(nameof(book));
 
-            // Provera da li knjiga već postoji
+            // Check if book exists
             if (_books.Any(b => b.ISBN == book.ISBN))
                 throw new InvalidOperationException($"Book with ISBN {book.ISBN} already exists");
 
@@ -60,18 +60,18 @@ namespace LibraryManagementSystem.Services
 
         public List<Book> GetAllBooks()
         {
-            return _books.ToList(); // Vraća kopiju liste
+            return _books.ToList(); // Return copy of the list
         }
 
         public List<Book> GetAvailableBooks()
         {
-            // LINQ upit
+            // LINQ query
             return _books.Where(b => b.IsAvailable).ToList();
         }
 
         public List<Book> SearchBooksByTitle(string title)
         {
-            // LINQ - case insensitive pretraga
+            // LINQ - case insensitive search
             return _books.Where(b => b.Title.ToLower().Contains(title.ToLower())).ToList();
         }
 
@@ -106,7 +106,7 @@ namespace LibraryManagementSystem.Services
             if (member == null)
                 throw new KeyNotFoundException($"Member with ID {memberId} not found");
 
-            // Provera da li član ima aktivne pozajmice
+            // Check if there's active loan
             if (_loans.Any(l => l.Member.MemberId == memberId && !l.IsReturned))
                 throw new InvalidOperationException("Cannot remove member with active loans");
 
@@ -128,11 +128,11 @@ namespace LibraryManagementSystem.Services
 
         public Loan CheckoutBook(string isbn, string memberId, int loanDurationDays = 14)
         {
-            // Pronalaženje knjige i člana
+            // Getting book and member
             Book book = GetBookByISBN(isbn);
             Member member = GetMemberById(memberId);
 
-            // Validacija
+            // Validation
             if (book == null)
                 throw new KeyNotFoundException($"Book with ISBN {isbn} not found");
 
@@ -142,12 +142,12 @@ namespace LibraryManagementSystem.Services
             if (!book.IsAvailable)
                 throw new InvalidOperationException($"Book '{book.Title}' is currently unavailable");
 
-            // Provera da li član ima dovoljno slobodnih slotova
+            // Check if meber has enough slots
             int currentLoans = _loans.Count(l => l.Member.MemberId == memberId && !l.IsReturned);
             if (currentLoans >= member.GetMaxBooksAllowed())
                 throw new InvalidOperationException($"Member has reached maximum loan limit ({member.GetMaxBooksAllowed()} books)");
 
-            // Kreiranje pozajmice
+            // Creating loan
             Loan loan = new Loan(book, member, loanDurationDays);
             book.IsAvailable = false;
             _loans.Add(loan);

@@ -7,7 +7,7 @@
         public Member Member { get; set; }
         public DateTime LoanDate { get; set; }
         public DateTime DueDate { get; set; }
-        public DateTime? ReturnDate { get; set; } // Nullable - može biti null ako knjiga nije vraćena
+        public DateTime? ReturnDate { get; set; }
         public bool IsReturned { get; set; }
 
         // Constructor
@@ -27,7 +27,7 @@
             ReturnDate = null;
         }
 
-        // Metoda za vraćanje knjige
+        // Method for returning book
         public void ReturnBook()
         {
             if (IsReturned)
@@ -38,7 +38,7 @@
             Book.IsAvailable = true;
         }
 
-        // Provera da li je knjiga zakasnila
+        // Check if book is overdue
         public bool IsOverdue()
         {
             if (IsReturned)
@@ -47,7 +47,7 @@
             return DateTime.Now > DueDate;
         }
 
-        // Računanje kazne za kašnjenje
+        // Calculate penalty fee
         public decimal CalculateLateFee(decimal feePerDay = 0.50m)
         {
             if (!IsOverdue())

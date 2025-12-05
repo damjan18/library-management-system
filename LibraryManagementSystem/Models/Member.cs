@@ -57,10 +57,10 @@
             MembershipDate = DateTime.Now;
         }
 
-        // Abstract metoda - svaki tip člana ima svoj limit knjiga (polimorfizam!)
+        // Abstract method
         public abstract int GetMaxBooksAllowed();
 
-        // Virtual metoda - može se override-ovati u child klasama
+        // Virtual method
         public virtual string GetMemberType()
         {
             return "General Member";
